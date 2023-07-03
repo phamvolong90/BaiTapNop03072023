@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { withFormik } from 'formik';
 import { Editor } from '@tinymce/tinymce-react';
 import { connect } from 'react-redux';
 import { sgaJiraDetailModalPostNewComment } from '../../../../redux/actions/JiraDetailModalSagaActions';
 import { actJiraDetailModalDisplayMainCommentEditor, actJiraDetailModalHideMainCommentEditor } from '../../../../redux/actions/JiraDetailCommentActions';
+import {
+    SGA_JIRA_DETAIL_MODAL_GET_ALL_COMMENT_BY_TASKID
+} from "../../../../redux/constant/Cyberbugs/JiraDetailCommentsConsts";
 
 function JiraTaskMainComment(props) {
 
@@ -15,6 +18,7 @@ function JiraTaskMainComment(props) {
         visibleMainCommentEditor,
         dispatch
     } = props;
+
 
     const handleEditorChange = (content, editor) => setFieldValue('contentComment', content);
     const renderMainCommentEditor = () => {
@@ -83,6 +87,7 @@ const JiraTaskCommentFormik = withFormik({
     },
 
     handleSubmit: (values, { setSubmitting, props }) => {
+        console.log('submit')
         const { dispatch, taskId } = props;
         dispatch(sgaJiraDetailModalPostNewComment({ taskId, contentComment: values.contentComment }));
         dispatch(actJiraDetailModalHideMainCommentEditor());

@@ -38,7 +38,7 @@ const initialState = {
           "commentContent": "<p> taskDetailModal lstComment Example commentContent Chau<p>"
         }
       ],
-      "taskId": 54,
+      "taskId": null,
       "taskName": "task 1",
       "alias": "task-1",
       "description": "<p>Before you start work on an issue, you can set a time or other type of estimate to calculate how much work you believe it'll take to resolve it. Once you've started to work on a specific issue, log time to keep a record of it.</p>\n<p>&nbsp;</p>\n<ul>\n<li>Open the issue and select&nbsp;&bull;&bull;&bull; &gt;&nbsp;Time tracking</li>\n<li>Fill in the<strong>&nbsp;Time Spent</strong>&nbsp;field</li>\n<li>Fill in the <strong>Time Remaining</strong> field and click Save</li>\n</ul>\n<p>&nbsp;</p>\n<h3><u>That's it!</u></h3>\n<h1>💯💯</h1>\n<p>&nbsp;</p>",

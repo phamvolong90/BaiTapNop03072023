@@ -16,6 +16,10 @@ import { Select } from "antd";
 import { GET_ALL_COMMENT_SAGA } from "../../../redux/constant/Cyberbugs/CommentConstants";
 import JiraTaskMainComment from "../ModalCyberBugs/JiraTaskComment/JiraTaskMainComment";
 import JiraTaskCommentItem from "../ModalCyberBugs/JiraTaskComment/JiraTaskCommentItem";
+import {sgaJiraDetailGetAllCommentByTaskId} from "../../../redux/actions/JiraDetailModalSagaActions";
+import {
+  SGA_JIRA_DETAIL_MODAL_GET_ALL_COMMENT_BY_TASKID
+} from "../../../redux/constant/Cyberbugs/JiraDetailCommentsConsts";
 const { Option } = Select;
 
 export default function ModalCyberBugs(props) {
@@ -37,18 +41,26 @@ export default function ModalCyberBugs(props) {
     dispatch({ type: GET_ALL_STATUS_SAGA });
     dispatch({ type: GET_ALL_PRIORITY_SAGA });
     dispatch({ type: GET_ALL_TASK_TYPE_SAGA });
-    // dispatch({ type: GET_ALL_COMMENT_SAGA });
+    dispatch({ type: GET_ALL_COMMENT_SAGA });
   }, []);
-  console.log("taskDetailModal", taskDetailModal);
-  console.log("Cách 1: lấy thông qua getAllComment API arrComment", arrComment);
-  console.log(
-    "Cách 2: Lấy thông qua taskDetailModal",
-    taskDetailModal.lstComment
-  );
+  // console.log("taskDetailModal", taskDetailModal);
+  // console.log("Cách 1: lấy thông qua getAllComment API arrComment", arrComment);
+  // console.log(
+  //   "Cách 2: Lấy thông qua taskDetailModal",
+  //   taskDetailModal.lstComment
+  // );
+  useEffect(() => {
+    if(taskDetailModal?.taskId){
+      dispatch({type: SGA_JIRA_DETAIL_MODAL_GET_ALL_COMMENT_BY_TASKID, taskId: taskDetailModal.taskId})
+    }
+  }, [taskDetailModal])
   const renderCommentArr = () =>
-    commentArr?.map((comment, index) => (
-      <JiraTaskCommentItem commentData={comment} key={index} />
+  {
+    console.log('coment', commentArr)
+    return commentArr.length &&  commentArr?.map((comment, index) => (
+        <JiraTaskCommentItem commentData={comment} key={index} />
     ));
+  }
 
   const renderDescription = () => {
     const jsxDescription = ReactHtmlParser(taskDetailModal.description);

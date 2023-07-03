@@ -8,6 +8,7 @@ import { SGA_JIRA_DETAIL_MODAL_DELETE_COMMENT, SGA_JIRA_DETAIL_MODAL_GET_ALL_COM
 
 //1. Get all comment by task id
 function* getAllCommentByTaskId(action) {
+
     try {
         const { data, status } = yield call(() => jiraDetailModalServices.sgGetAllCommentByTaskId(action.taskId));
         if (status === STATUS_CODE.SUCCESS) {
@@ -31,7 +32,8 @@ function* clickPostNewComment(action) {
         const { data, status } = yield call(() => jiraDetailModalServices.sgPostNewComment(action.commentData));
         if (status === STATUS_CODE.SUCCESS) {
             notifiFunction(NOTIFICATION_ANTD_SUCCESS, data.message, 'Something else comment ok!');
-            yield put((sgaJiraDetailGetAllCommentByTaskId(taskId)));
+            console.log('action', action)
+            yield put((sgaJiraDetailGetAllCommentByTaskId(action.commentData.taskId)));
         } else {
             notifiFunction(NOTIFICATION_ANTD_ERROR, 'Server error', 'Something was wrong!');
             console.log('Something was wrong! For developer only!');
